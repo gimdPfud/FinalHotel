@@ -44,6 +44,7 @@ public class BrandController {
 
             log.info("유효성검사 에러~~~");
             log.info(bindingResult.getAllErrors());
+
             return "brand/insert";
 
         }
