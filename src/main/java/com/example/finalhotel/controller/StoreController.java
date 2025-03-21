@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @Log4j2
@@ -43,7 +44,9 @@ public class StoreController {
     @GetMapping("/read")
     public String readGet(Long storeNum, Model model){
         StoreDTO storeDTO = storeService.storeRead(storeNum);
-        model.addAttribute("storeDTO", storeDTO);
+        String name = storeService.hotelName(storeDTO.getHotelNum());
+        model.addAttribute("store", storeDTO);
+        model.addAttribute("hotelName",name);
         return "store/read";
     }
 
@@ -64,8 +67,17 @@ public class StoreController {
     }
 
     /*목록*/
+//    @GetMapping("/list")
+//    public String listGet(Principal principal, Model model){
+//        storeService.storeList()
+//        return null;
+//    }
     @GetMapping("/list")
-    public String listGet(){
-        return null;
+    public String listGet(Long hotelNum, Model model){
+        List<StoreDTO> storeDTOList = storeService.storeList(hotelNum, "hotel", "all");
+        String name = storeService.hotelName(hotelNum);
+        model.addAttribute("storeDTOList",storeDTOList);
+        model.addAttribute("hotelName",name);
+        return "store/list";
     }
 }
