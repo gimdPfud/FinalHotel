@@ -27,7 +27,7 @@ public class Store {
     private String storeOwnerContact;
 
     //직영가맹여부
-    private boolean isOwn;
+    private String isOwn;
 
     //호텔
     @ManyToOne(fetch = FetchType.LAZY)

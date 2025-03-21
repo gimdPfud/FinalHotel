@@ -1,10 +1,9 @@
 package com.example.finalhotel.dto;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.finalhotel.entity.Board;
+import com.example.finalhotel.entity.Brand;
+import com.example.finalhotel.entity.Hotel;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -24,9 +23,15 @@ public class ReplyDTO {
 
 
     //본사참조 DTO
+    private BrandDTO brandDTO;
 
-    //지점 참조 DTO
+
+    //호텔 참조 DTO
+    private HotelDTO hotelDTO;
+
 
     //게시판 참조 DTO
+    private BoardDTO boardDTO;
+
 
 }
