@@ -23,10 +23,11 @@ public class HotelController {
     private final HotelService hotelService;
 
     @GetMapping("/list")
-    public String getList(Model model) {
+    public String getList(@PathVariable("hotelNum") Long brandNum, Model model) {
         log.info("list getList Controller 진입");
         List<HotelDTO> hotelDTOS = hotelService.hotelList(brandNum);
         model.addAttribute("hotelDTOS", hotelDTOS);
+
 
         return "hotel/list";
     }
