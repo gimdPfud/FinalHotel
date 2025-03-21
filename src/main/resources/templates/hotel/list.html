@@ -38,11 +38,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="hotel : ${hotelDTOS}">
-        <td th:text="${hotel.hotelNum}"></td>
-        <td th:text="${hotel.hotelName}"></td>
-        <td th:text="${hotel.hotelContent}"></td>
-    </tr>
+    <th:block th:each="hotel : ${hotelDTOS}">
+        <tr>
+            <td th:text="${hotel.hotelNum}"></td>
+            <td th:text="${hotel.hotelName}"></td>
+            <td th:text="${hotel.hotelContent}"></td>
+        </tr>
+    </th:block>
     </tbody>
 </table>
 

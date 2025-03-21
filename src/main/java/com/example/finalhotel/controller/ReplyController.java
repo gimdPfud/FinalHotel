@@ -49,7 +49,7 @@ public class ReplyController {
         replyService.insertReply(target, replyDTO);
 
         if(target.equals("hotel")){
-            return "redirect:/hotel/read?num=" + replyDTO.getHotelNum();
+            return "redirect:/hotel/read/" + replyDTO.getHotelNum();
         }else    if(target.equals("brand")){
             return "redirect:/brand/read?brandNum=" + replyDTO.getBrandNum();
         }else  {
