@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,9 +33,9 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
-    public List<HotelDTO> hotelList(Principal principal) {
+    public List<HotelDTO> hotelList(String email) {
 //        return hotelRepository.findAll().stream().map( hotel->modelMapper.map(hotel,HotelDTO.class)).collect(Collectors.toList());
-        return hotelRepository.findAll().stream().map( hotel->modelMapper.map(hotel,HotelDTO.class)).collect(Collectors.toList());
+        return hotelRepository.findByBrand_Member_MemberEmail(email).stream().map( hotel->modelMapper.map(hotel,HotelDTO.class)).collect(Collectors.toList());
     }
 
     @Override

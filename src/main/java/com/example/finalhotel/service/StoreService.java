@@ -3,13 +3,12 @@ package com.example.finalhotel.service;
 import com.example.finalhotel.dto.HotelDTO;
 import com.example.finalhotel.dto.StoreDTO;
 
-import java.security.Principal;
 import java.util.List;
 
 public interface StoreService {
     /*상점등록(상점DTO받아서)*/
     public Long storeInsert(StoreDTO storeDTO);
-    public List<HotelDTO> hotelList(Principal principal);
+    public List<HotelDTO> hotelList(String email);
 
     /*상점수정(상점DTO받아서)*/
     public Long storeUpdate(StoreDTO storeDTO);

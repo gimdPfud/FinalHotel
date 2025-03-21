@@ -8,5 +8,12 @@
 </head>
 <body>
 <h1>상점등록</h1>
+<input th:if="${!#strings.isEmpty(hotelNum)}" name="hotelNum" th:value="${hotelNum}">
+<th:block th:if="${!#lists.isEmpty(hotelDTOList)}">
+    <select name="hotelNum">
+        <option th:each="hotel:${hotelDTOList}" th:text="${hotel.hotelName}" th:value="${hotel.hotelNum}">
+        </option>
+    </select>
+</th:block>
 </body>
 </html>

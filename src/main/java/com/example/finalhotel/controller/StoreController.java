@@ -28,8 +28,8 @@ public class StoreController {
 
     @GetMapping("/insertA")
     public String insertGetA(Principal principal, Model model){
-        storeService.
-//        model.addAttribute("hotelNum",hotelNum);
+
+        model.addAttribute("hotelDTOList",storeService.hotelList("sin@a.a"));
         return "store/insert";
     }
 
