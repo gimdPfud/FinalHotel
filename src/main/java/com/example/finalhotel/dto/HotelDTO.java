@@ -20,6 +20,6 @@ public class HotelDTO {
 
     private String hotelContent;
 
-    private BrandDTO brandDTO;
+    private BreandDTO brandDTO;
 
 }
