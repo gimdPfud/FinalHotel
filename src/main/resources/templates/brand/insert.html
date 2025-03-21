@@ -6,27 +6,57 @@
     <meta charset="UTF-8">
     <title>여기는 등록 페이지</title>
 </head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .fieldError {
+        color: red;
+    }
+</style>
 <body>
 
-<h1> 여기는 등록 페이지 </h1>
-<th:block>
-    <a th:href="${'/brand/list'}">리스트페이지로 이동</a>
-</th:block>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">여기는 본사 등록 페이지</h1>
 
-<th:block>
-<form action="/brand/insert" method="post" th:object="${brandDTO} " >
+    <!-- 리스트 페이지로 이동하는 링크 -->
+    <div class="text-right mb-3">
+        <a th:href="@{/brand/list}" class="btn btn-outline-primary">리스트 페이지로 이동</a>
+    </div>
 
-    제목 : <input name="brandTitle" th:field="*{brandTitle}"> <br>
-    <p th:if="${#fields.hasErrors('brandTitle')}" th:errors="*{brandTitle}" class="fieldError"/>
+    <!-- 폼 시작 -->
+    <form id="registerForm" action="/brand/insert" method="post" th:object="${brandDTO}">
+        <div class="form-group">
+            <label for="brandTitle">제목</label>
+            <input type="text" class="form-control" name="brandTitle" th:field="*{brandTitle}" id="brandTitle">
+            <p th:if="${#fields.hasErrors('brandTitle')}" th:errors="*{brandTitle}" class="fieldError"></p>
+        </div>
 
-    내용 : <input name="brandContent" th:field="*{brandContent}"> <br>
-    <p th:if="${#fields.hasErrors('brandContent')}" th:errors="*{brandTitle}" class="fieldError"/>
+        <div class="form-group">
+            <label for="brandContent">내용</label>
+            <textarea class="form-control" name="brandContent" th:field="*{brandContent}" id="brandContent" rows="5"></textarea>
+            <p th:if="${#fields.hasErrors('brandContent')}" th:errors="*{brandContent}" class="fieldError"></p>
+        </div>
 
-    <button>저장</button>
-</form>
-</th:block>
+        <button type="submit" class="btn btn-primary btn-block">저장</button>
+    </form>
 
-<a th:href="${'/brand/list'}">목록페이지로 이동</a>
+    <!-- 목록 페이지로 이동하는 링크 -->
+    <div class="text-center mt-3">
+        <a th:href="@{/brand/list}" class="btn btn-outline-secondary">목록 페이지로 이동</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery (필수는 아니지만 필요에 따라 사용) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
+<script th:inline="javascript">
+    const form = document.getElementById("registerForm");
+
+    form.addEventListener("submit", function(e) {
+        alert("등록이 완료되었습니다.");
+    });
+</script>
 </html>

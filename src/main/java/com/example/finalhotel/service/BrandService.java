@@ -22,4 +22,9 @@ public interface BrandService {
 
     // 삭제
     public Long del(Long num);
+
+
+
+
+
 }
