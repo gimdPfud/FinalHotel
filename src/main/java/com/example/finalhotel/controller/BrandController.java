@@ -44,6 +44,7 @@ public class BrandController {
 
             log.info("유효성검사 에러~~~");
             log.info(bindingResult.getAllErrors());
+            log.info("값 찾을 수 없으니까 등록페이지로 다시가라.");
 
             return "brand/insert";
 
