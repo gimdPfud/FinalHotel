@@ -2,8 +2,11 @@ package com.example.finalhotel.controller;
 
 import com.example.finalhotel.dto.BrandDTO;
 import com.example.finalhotel.dto.MemberDTO;
+import com.example.finalhotel.dto.ReplyDTO;
 import com.example.finalhotel.repository.BrandRepository;
+import com.example.finalhotel.repository.ReplyRepository;
 import com.example.finalhotel.service.BrandService;
+import com.example.finalhotel.service.ReplyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -26,6 +29,7 @@ public class BrandController {
 
     private final BrandService brandService;
     private final BrandRepository brandRepository;
+    private final ReplyService replyService;
 
     @GetMapping("/brand/insert")
     public String insertGet(BrandDTO brandDTO, String email, Model model) {
@@ -83,9 +87,14 @@ public class BrandController {
         BrandDTO brandDTO =
                 brandService.read(brandNum);
 
+        List<ReplyDTO> replyDTOList =
+                replyService.listReply("brand", brandNum);
+
+
         log.info("저장된 pk 넘버를 찾아옵니다." + brandNum);
 
         model.addAttribute("brandDTO", brandDTO);
+        model.addAttribute("replyDTOList", replyDTOList);
 
         return "brand/read";
 
