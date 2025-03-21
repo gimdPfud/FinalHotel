@@ -9,4 +9,5 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
 
 List<Brand> findByMember_MemberEmail(String Email);
 
+
 }

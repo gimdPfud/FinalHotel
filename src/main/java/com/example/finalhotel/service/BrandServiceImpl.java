@@ -80,7 +80,9 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public BrandDTO update(BrandDTO brandDTO) {
-        log.info("본사 업데이트 서비스 진입" + brandDTO);
+        log.info("본사 업데이트 서비스 진입" + brandDTO.getBrandNum());
+        log.info("본사 업데이트 서비스 진입" + brandDTO.getBrandTitle());
+        log.info("본사 업데이트 서비스 진입" + brandDTO.getBrandContent());
 
         Optional<Brand> optionalBrand =
                 brandRepository.findById(brandDTO.getBrandNum());

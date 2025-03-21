@@ -3,10 +3,13 @@ package com.example.finalhotel.controller;
 import com.example.finalhotel.dto.BrandDTO;
 import com.example.finalhotel.repository.BrandRepository;
 import com.example.finalhotel.service.BrandService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 @Controller
+@ToString
 
 public class BrandController {
 
@@ -30,15 +34,23 @@ public class BrandController {
     }
 
     @PostMapping("/brand/insert")
-    public String insertPost(BrandDTO brandDTO) {
+    public String insertPost(@Valid BrandDTO brandDTO, BindingResult bindingResult) {
         log.info("post 방식 본사 가입 컨트롤러 진입" + brandDTO);
+
+        if (bindingResult.hasErrors()) {
+
+            log.info("유효성검사 에러~~~");
+            log.info(bindingResult.getAllErrors());
+            return "brand/insert";
+
+        }
 
         brandDTO =
                 brandService.insert(brandDTO);
 
         log.info("저장된 brandDTO" + brandDTO);
 
-        return "brand/insert";
+        return "redirect:/brand/list";
     }
 
     @GetMapping("/brand/list")
@@ -73,7 +85,7 @@ public class BrandController {
 
     }
 
-    @GetMapping("/update")
+    @GetMapping("/brand/update")
     public String getUpdate(Long brandNum, Model model) {
         log.info("본사 업데이트 get 컨트롤러 진입" + brandNum);
 
@@ -93,7 +105,7 @@ public class BrandController {
 
     }
 
-    @PostMapping("/update")
+    @PostMapping("/brand/update")
     public String postUpdate(BrandDTO brandDTO){
         log.info("본사 업데이트 post 컨트롤러 진입" + brandDTO);
 
@@ -106,7 +118,7 @@ public class BrandController {
 
     }
 
-    @PostMapping("/del")
+    @PostMapping("/brand/del")
     public String postDel(BrandDTO brandDTO, Long brandNum){
         log.info("본사 삭제 포스트 진입");
         log.info("삭제할 번호를 찾기" + brandNum);
