@@ -26,8 +26,7 @@ public class BrandController {
     public String insertPost(BrandDTO brandDTO){
         log.info("post 방식 본사 가입 컨트롤러 진입" + brandDTO);
 
-        brandDTO =
-                breand
+
 
         return "brand/insert";
     }
