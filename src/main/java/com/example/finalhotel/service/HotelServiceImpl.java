@@ -25,11 +25,11 @@ public class HotelServiceImpl implements HotelService {
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public void hotelInsert(HotelDTO hotelDTO, Long brandNum) {
+    public void hotelInsert(HotelDTO hotelDTO) {
 
         //호텔 등록하기
         //먼저 본사(brand) pk 갖고오기 (갖고만 왔음)
-        Brand brand = brandRepository.findById(brandNum).orElseThrow();
+        Brand brand = brandRepository.findById(hotelDTO.getBrandDTO().getBrandNum()).orElseThrow();
         log.info("갖고온 brand pk : " + brand);
 
         //받은 hotelDTO를 entity로 변환 후 entity에 저장 (여기에는 본사 pk 없음)
@@ -58,18 +58,40 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelDTO hotelRead(Long hotelNum) {
 
-        //
+        //Hotel pk로 호텔 조회
         Optional<Hotel> optionalHotel = hotelRepository.findById(hotelNum);
-
         log.info("read할 목록 : " + optionalHotel);
 
+        //optional 값이 존재하면 해당 값을 반환, 존재하지 않으면 예외 발생
         Hotel hotel = optionalHotel.orElseThrow();
 
-        //entity를 DTO로
+        //entity를 DTO로 변환
         return modelMapper.map(hotel, HotelDTO.class);
     }
 
+    @Override
+    public void hotelUpdate(HotelDTO hotelDTO) {
 
+        //Hotel pk로 호텔 조회
+        Hotel hotel = hotelRepository.findById(hotelDTO.getHotelNum()).orElseThrow();
+
+        //Hotel에 수정한 호텔명(getHotelName), 호텔내용(getHotelContent) set
+        hotel.setHotelName(hotelDTO.getHotelName());
+        hotel.setHotelContent(hotelDTO.getHotelContent());
+
+        //저장
+        hotelRepository.save(hotel);
+    }
+
+    @Override
+    public void hotelDel(Long hotelNum) {
+
+        hotelRepository.deleteById(hotelNum);
+
+    }
+
+
+    //인규님 필요하다고 하셔서 작성
     @Override
     public List<HotelDTO> getHotelFullList(){
         List<Hotel> hotel= hotelRepository.findAll();
