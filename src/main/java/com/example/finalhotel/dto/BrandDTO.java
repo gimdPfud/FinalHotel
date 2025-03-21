@@ -1,6 +1,5 @@
 package com.example.finalhotel.dto;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 
 @Getter
@@ -8,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class BreandDTO {
+public class BrandDTO {
 
     private Long brandNum;
 
