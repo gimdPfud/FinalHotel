@@ -22,5 +22,6 @@ public interface StoreService {
     /*상점목록보기
     * 가맹 따로 직영 따로 */
     public List<StoreDTO> storeList(Long superNum, String hotelOrBrand, String isOwn);
+    public List<StoreDTO> storeList();
     /*상점목록보기(브랜드와 협업하는 모든 가맹점 보기...(근데 이럴라면 가맹브랜드 테이블이 하나 더 있어야 편하겠다))*/
 }

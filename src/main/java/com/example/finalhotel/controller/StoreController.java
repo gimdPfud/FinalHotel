@@ -28,14 +28,13 @@ public class StoreController {
 
     @GetMapping("/insertA")
     public String insertGetA(Principal principal, Model model){
-
-        model.addAttribute("hotelDTOList",storeService.hotelList("sin@a.a"));
+        model.addAttribute("hotelDTOList",storeService.hotelList(principal.getName()));
         return "store/insert";
     }
-    /*링크도 */
 
     @PostMapping("/insert")
     public String insertPost(StoreDTO storeDTO){
+        log.info(storeDTO);
         Long storeNum = storeService.storeInsert(storeDTO);
         return "redirect:/store/read?storeNum="+storeNum;
     }
