@@ -47,9 +47,9 @@ public class ReplyServiceImpl implements ReplyService{
 
     //브랜드(Brand) 리뷰등록 기능
     @Override
-    public ReplyDTO insertBrand(ReplyDTO replyDTO) {
-        //브랜드 pk 가져오기
+    public ReplyDTO insertReply(ReplyDTO replyDTO) {
 
+        //========브랜드==========================
         Optional<Brand> optionalBrand =
         brandRepository.findById(replyDTO.getReplyNum());
 
@@ -59,10 +59,37 @@ public class ReplyServiceImpl implements ReplyService{
         log.info("브랜드에 있는 pk값 들어 왔니" + brand);
         //=================브랜드===엔티티 조립완료
 
+
+        //========호텔 ================================
+        Optional<Hotel> optionalHotel =
+                hotelRepository.findById(replyDTO.getReplyNum());
+
+        //예외처리
+        Hotel hotel =
+                optionalHotel.orElseThrow(EntityNotFoundException::new);
+        //=================HOTEL===엔티티 조립완료
+
+
+        //========보드 ================================
+        Optional<Board> optionalBoard =
+                boardRepositoty.findById(replyDTO.getReplyNum());
+
+        //예외처리
+        Board board =
+                optionalBoard.orElseThrow(EntityNotFoundException::new);
+        //=================Board===엔티티 조립완료
+
+
+
+
         //리뷰 엔티티 dto로 변환
         Reply reply =
                 modelMapper.map(replyDTO, Reply.class);
+
+        //브랜드, 호텔, 보드, 엔티티 set 해주기
         reply.setBrand(brand);
+        reply.setHotel(hotel);
+        reply.setBoard(board);
 
         //리뷰 Db 에 저장 메서드
         Reply brandresult =
@@ -75,63 +102,6 @@ public class ReplyServiceImpl implements ReplyService{
         return replyDTO;
     }
 
-    //Hotel 리뷰 등록 기능
-    @Override
-    public ReplyDTO insertHotel(ReplyDTO replyDTO) {
-        //호텔 pk 가져오기
-
-        Optional<Hotel> optionalHotel =
-        hotelRepository.findById(replyDTO.getReplyNum());
-
-        //예외처리
-        Hotel hotel =
-        optionalHotel.orElseThrow(EntityNotFoundException::new);
-        //=================HOTEL===엔티티 조립완료
-
-        //=============리뷰 조립 하기 ==========
-        Reply reply =
-                modelMapper.map(replyDTO, Reply.class);
-        reply.setHotel(hotel);
-
-        Reply hotelresult =
-        replyRepository.save(reply);
-
-        //리뷰 DTO에 조립 한거 반환 하기
-        replyDTO = modelMapper.map(hotelresult, ReplyDTO.class);
-
-
-        //리뷰 DTO 에 반환
-        return replyDTO;
-    }
-    //Board(게시판) - 등록 기능
-    @Override
-    public ReplyDTO insertBroad(ReplyDTO replyDTO) {
-
-
-        Optional<Board> optionalBoard =
-                boardRepositoty.findById(replyDTO.getReplyNum());
-
-        //예외처리
-        Board board =
-                optionalBoard.orElseThrow(EntityNotFoundException::new);
-        //=================HOTEL===엔티티 조립완료
-
-        //=============리뷰 조립 하기 ==========
-        Reply reply =
-                modelMapper.map(replyDTO, Reply.class);
-        reply.setBoard(board);
-
-        Reply boardlresult =
-                replyRepository.save(reply);
-
-        //리뷰 DTO에 조립 한거 반환 하기
-        replyDTO = modelMapper.map(boardlresult, ReplyDTO.class);
-
-
-        //리뷰 DTO 에 반환
-        return replyDTO;
-
-    }
 
     //리뷰 목록 기능
     @Override
