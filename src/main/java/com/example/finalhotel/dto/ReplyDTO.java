@@ -33,5 +33,9 @@ public class ReplyDTO {
     //게시판 참조 DTO
     private BoardDTO boardDTO;
 
+    private Long hotelNum;
+    private Long boardNum;
+    private Long brandNum;
+
 
 }

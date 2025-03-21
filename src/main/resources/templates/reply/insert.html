@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰게시판</title>
+
+</head>
+<body>
+<h1>리뷰 게시판 입니다. </h1>
+
+<form action="/reply/insert" method="post" >
+    <input name="hotelNum" type="text" value="1">
+    <input name="target" type="text" value="hotel">  <!--저장할 참조객체 호텔:hotel, 보드 : board-->
+<!--    <input name="target" type="hidden" value="board">-->
+<!--    <input name="target" type="hidden" value="hotel">-->
+
+    리뷰 이름 : <input name="replyName" >
+    리뷰 내용 : <input name="replyContent" >
+    <button type="submit">리뷰저장</button>
+
+</form>
+
+<table>
+    <thead>
+    <th>리뷰번호</th>
+    <th>리뷰제목</th>
+    <th>리뷰내용</th>
+
+    </thead>
+    <tbody>
+
+    <th:block th:each="replyDTO: ${replyDTOList}">
+        <tr>
+            <td th:text="${replyDTO.replyNum}"></td>
+            <td >
+                <a th:href="@{/board/read(num=${replyDTO.replyNum})}">
+                    [[${replyDTO.replyName}]]
+                </a>
+            </td>
+            <td th:text="${replyDTO.replyName}"></td>
+            <td th:text="${replyDTO.replyContent}"></td>
+
+        </tr>
+    </th:block>
+
+
+    </tbody>
+
+</table>
+
+
+
+</body>
+</html>
