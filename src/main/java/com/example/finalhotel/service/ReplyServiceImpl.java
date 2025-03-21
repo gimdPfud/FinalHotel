@@ -31,13 +31,13 @@ public class ReplyServiceImpl implements ReplyService{
     private final ReplyRepository replyRepository;
 
     //Brand 레퍼지토리 가져오기
-    private BrandRepository brandRepository;
+    private  final BrandRepository brandRepository;
 
     //Hotel 레퍼지토리 가져오기
-    private HotelRepository hotelRepository;
+    private final HotelRepository hotelRepository;
 
     //Board 레퍼지토리 가져오기
-    private BoardRepositoty boardRepositoty;
+    private final BoardRepositoty boardRepositoty;
 
 
 
@@ -47,49 +47,50 @@ public class ReplyServiceImpl implements ReplyService{
 
     //브랜드(Brand) 리뷰등록 기능
     @Override
-    public ReplyDTO insertReply(ReplyDTO replyDTO) {
-
-        //========브랜드==========================
-        Optional<Brand> optionalBrand =
-        brandRepository.findById(replyDTO.getReplyNum());
-
-        //브랜드 엔티티 값 예외처리
-        Brand brand =
-        optionalBrand.orElseThrow(EntityNotFoundException::new);
-        log.info("브랜드에 있는 pk값 들어 왔니" + brand);
-        //=================브랜드===엔티티 조립완료
-
-
-        //========호텔 ================================
-        Optional<Hotel> optionalHotel =
-                hotelRepository.findById(replyDTO.getReplyNum());
-
-        //예외처리
-        Hotel hotel =
-                optionalHotel.orElseThrow(EntityNotFoundException::new);
-        //=================HOTEL===엔티티 조립완료
-
-
-        //========보드 ================================
-        Optional<Board> optionalBoard =
-                boardRepositoty.findById(replyDTO.getReplyNum());
-
-        //예외처리
-        Board board =
-                optionalBoard.orElseThrow(EntityNotFoundException::new);
-        //=================Board===엔티티 조립완료
-
-
-
+    public ReplyDTO insertReply(String target , ReplyDTO replyDTO) {
 
         //리뷰 엔티티 dto로 변환
         Reply reply =
                 modelMapper.map(replyDTO, Reply.class);
 
-        //브랜드, 호텔, 보드, 엔티티 set 해주기
-        reply.setBrand(brand);
-        reply.setHotel(hotel);
-        reply.setBoard(board);
+
+
+//        log.info("브랜드에 있는 pk값 들어 왔니" + brand);
+        //=================브랜드===엔티티 조립완료
+
+        if(target.equals("brand")) {
+            //========브랜드==========================
+            log.info("브랜드");
+            Optional<Brand> optionalBrand =
+                    brandRepository.findById(replyDTO.getBrandNum());
+
+            //브랜드 엔티티 값 예외처리
+            Brand brand =
+                    optionalBrand.orElseThrow(EntityNotFoundException::new);
+            reply.setBrand(brand);
+
+        }else if(target.equals("hotel")){
+
+            log.info("호텔");
+            Optional<Hotel> optionalHotel =
+                    hotelRepository.findById(replyDTO.getHotelNum());
+            Hotel hotel =
+                    optionalHotel.orElseThrow(EntityNotFoundException::new);
+            reply.setHotel(hotel);
+            
+        }else if(target.equals("board")){
+
+            log.info("보드");
+            //========보드 ================================
+            Optional<Board> optionalBoard =
+                    boardRepositoty.findById(replyDTO.getBoardNum());
+
+            //예외처리
+            Board board =
+                    optionalBoard.orElseThrow(EntityNotFoundException::new);
+            reply.setBoard(board);
+        }
+
 
         //리뷰 Db 에 저장 메서드
         Reply brandresult =
@@ -105,11 +106,22 @@ public class ReplyServiceImpl implements ReplyService{
 
     //리뷰 목록 기능
     @Override
-    public List<ReplyDTO> listReply() {
+    public List<ReplyDTO> listReply(String target, Long targetNum) {
 
         //엔티티 배열 정리
-        List<Reply> replyList =
-        replyRepository.findAll();
+        List<Reply> replyList = null;
+
+
+        if(target.equals("hotel")){
+
+            replyList = replyRepository.findByHotel_HotelNum(targetNum );
+        }else if(target.equals("brand")){
+            replyList = replyRepository.findByBrand_BrandNum(targetNum );
+        }else{
+            replyList = replyRepository.findByBoard_BoardNum(targetNum );
+
+        }
+
         log.info("리뷰 엔티티 리스트 들어 왓니 " + replyList);
         log.info("없으면 null 이겠지 확인하자 " + replyList);
 
