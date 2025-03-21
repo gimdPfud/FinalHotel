@@ -4,9 +4,44 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>상점 수정</title>
+    <title>상점 수정하기</title>
 </head>
 <body>
-<h1>상점수정</h1>
+<h1>상점 수정하기</h1>
+<a th:href="@{/store/del(storeNum=${store.storeNum})}">삭제</a>
+<form th:action="@{/store/update}" method="post">
+    <div>
+        <label for="storeNum"><strong>상점 번호:</strong></label>
+        <input type="text" id="storeNum" name="storeNum" th:value="${store.storeNum}" readonly>
+    </div>
+    <div>
+        <label for="storeName"><strong>상점 이름:</strong></label>
+        <input type="text" id="storeName" name="storeName" th:value="${store.storeName}">
+    </div>
+    <div>
+        <label for="storeOwnerName"><strong>담당자 이름:</strong></label>
+        <input type="text" id="storeOwnerName" name="storeOwnerName" th:value="${store.storeOwnerName}">
+    </div>
+    <div>
+        <label for="storeOwnerContact"><strong>담당자 연락처:</strong></label>
+        <input type="text" id="storeOwnerContact" name="storeOwnerContact" th:value="${store.storeOwnerContact}">
+    </div>
+    <div>
+        <label for="isOwn"><strong>직영/가맹 여부:</strong></label>
+        <select id="isOwn" name="isOwn">
+            <option value="y" th:selected="${store.isOwn} == 'y'">직영</option>
+            <option value="n" th:selected="${store.isOwn} == 'n'">가맹</option>
+        </select>
+    </div>
+    <div>
+<!--        <label for="hotelNum"><strong>호텔 번호:</strong></label>-->
+        <th:block th:if="${!#lists.isEmpty(hotelDTOList)}">
+            <select id="hotelNum" name="hotelNum">
+                <option th:each="hotel:${hotelDTOList}" th:text="${hotel.hotelName}" th:value="${hotel.hotelNum}"></option>
+            </select>
+        </th:block>
+    </div>
+    <button type="submit">수정하기</button>
+</form>
 </body>
 </html>

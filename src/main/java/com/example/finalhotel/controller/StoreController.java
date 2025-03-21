@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -52,18 +53,29 @@ public class StoreController {
 
     /*나중에 삭제*/
     @GetMapping("/del")
-    public String delGet(){
-        return null;
+    public String delGet(Long storeNum, RedirectAttributes model){
+        Long hotelNum = storeService.storeDel(storeNum);
+        if(hotelNum==null){
+            model.addAttribute("msg", "삭제할 수 없습니다.");
+            return "redirect:/store/update?storeNum="+storeNum;
+        }
+        return "redirect:/store/list?hotelNum="+hotelNum;
     }
 
     /*나중에 수정*/
     @GetMapping("/update")
-    public String updateGet(){
-        return null;
+    public String updateGet(Long storeNum,Principal principal ,Model model){
+        log.info(storeNum + "    " + principal);
+        StoreDTO storeDTO = storeService.storeRead(storeNum);
+        model.addAttribute("store", storeDTO);
+        model.addAttribute("hotelDTOList",storeService.hotelList(principal.getName()));
+        log.info(storeService.hotelList(principal.getName()));
+        return "store/update";
     }
     @PostMapping("/update")
-    public String updatePost(){
-        return null;
+    public String updatePost(StoreDTO storeDTO){
+        Long storeNum = storeService.storeUpdate(storeDTO);
+        return "redirect:/store/read?storeNum="+storeNum;
     }
 
     /*목록*/
