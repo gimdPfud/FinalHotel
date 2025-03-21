@@ -1,6 +1,9 @@
 package com.example.finalhotel.dto;
 
 
+import com.example.finalhotel.entity.Member;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Getter
