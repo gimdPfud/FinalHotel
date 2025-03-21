@@ -23,9 +23,19 @@ public class Reply {
 
 
     //본사참조 테이블
+    @ManyToOne
+    @JoinColumn(name = "brandNum")
+    private Brand brand;
 
-    //지점 참조 테이블
+
+    //호텔 참조 테이블
+    @ManyToOne
+    @JoinColumn(name = "hotelNum")
+    private Hotel hotel;
 
     //게시판 참조 테이블
+    @ManyToOne
+    @JoinColumn(name ="boardNum" )
+    private Board board;
 
 }

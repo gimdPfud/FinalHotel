@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>여기는 등록 페이지</title>
+</head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .fieldError {
+        color: red;
+    }
+</style>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">여기는 본사 등록 페이지</h1>
+
+    <!-- 리스트 페이지로 이동하는 링크 -->
+    <div class="text-right mb-3">
+        <a th:href="@{/brand/list}" class="btn btn-outline-primary">리스트 페이지로 이동</a>
+    </div>
+
+    <!-- 폼 시작 -->
+    <form id="registerForm" action="/brand/insert" method="post" th:object="${brandDTO}">
+        <div class="form-group">
+            <label for="brandTitle">제목</label>
+            <input type="text" class="form-control" name="brandTitle" th:field="*{brandTitle}" id="brandTitle">
+            <p th:if="${#fields.hasErrors('brandTitle')}" th:errors="*{brandTitle}" class="fieldError"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="brandContent">내용</label>
+            <textarea class="form-control" name="brandContent" th:field="*{brandContent}" id="brandContent" rows="5"></textarea>
+            <p th:if="${#fields.hasErrors('brandContent')}" th:errors="*{brandContent}" class="fieldError"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">저장</button>
+    </form>
+
+    <!-- 목록 페이지로 이동하는 링크 -->
+    <div class="text-center mt-3">
+        <a th:href="@{/brand/list}" class="btn btn-outline-secondary">목록 페이지로 이동</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery (필수는 아니지만 필요에 따라 사용) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+<script th:inline="javascript">
+    const form = document.getElementById("registerForm");
+
+    form.addEventListener("submit", function(e) {
+        alert("등록이 완료되었습니다.");
+    });
+</script>
+</html>

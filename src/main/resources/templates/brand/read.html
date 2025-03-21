@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>읽기 페이지</title>
+    <!-- Bootstrap CDN 추가 -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .fieldError {
+            color: red;
+        }
+        .btn-custom {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">본사 상세 정보</h1>
+
+    <!-- 본사 정보 출력 -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">글번호: <span th:text="${brandDTO.brandNum}"></span></h5>
+            <p class="card-text">
+                <strong>본사이름: </strong><span th:text="${brandDTO.brandTitle}"></span><br>
+                <strong>본사설명: </strong><span th:text="${brandDTO.brandContent}"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <!-- 수정하기 버튼 -->
+        <a th:href="@{/brand/update(brandNum=${brandDTO.brandNum})}"
+           class="btn btn-warning btn-lg btn-custom"
+           onclick="return confirmUpdate();">수정하기</a>
+
+        <!-- 목록 페이지로 이동하는 버튼 -->
+        <a th:href="@{/brand/list}"
+           class="btn btn-primary btn-lg btn-custom"
+           onclick="return confirmList();">목록으로 이동</a>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+<script th:inline="javascript">
+    // 수정 작업을 진행할지 확인하는 함수
+    function confirmUpdate() {
+        const result = confirm("수정작업을 진행하시겠습니까?");
+        if (result) {
+            return true;  // 수정 작업을 계속 진행
+        } else {
+            return false; // 수정 작업을 취소
+        }
+    }
+
+    // 목록 페이지로 이동할지 확인하는 함수
+    function confirmList() {
+        const result = confirm("목록으로 이동하시겠습니까?");
+        if (result) {
+            return true;  // 목록 페이지로 이동
+        } else {
+            return false; // 이동을 취소
+        }
+    }
+</script>
+
+</html>

@@ -1,9 +1,8 @@
 package com.example.finalhotel.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -20,8 +19,17 @@ public class Brand {
 
     private Long brandNum;
 
+    @Column(length = 50, nullable = false)
     private String brandTitle;
 
+    @Column(length = 2000, nullable = false)
     private String brandContent;
+
+    @ManyToOne
+    @JoinColumn(name = "memberNum")
+    private Member member;
+
+
+
 
 }

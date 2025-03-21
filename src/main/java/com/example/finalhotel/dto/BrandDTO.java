@@ -1,5 +1,6 @@
 package com.example.finalhotel.dto;
 
+
 import lombok.*;
 
 @Getter
@@ -11,7 +12,4 @@ public class BrandDTO {
 
     private Long brandNum;
 
-    private String brandTitle;
-
-    private String brandContent;
 }

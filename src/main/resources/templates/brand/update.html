@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>수정 페이지</title>
+    <!-- Bootstrap 4.5.2 CDN 링크 -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            margin-top: 50px;
+        }
+        .delbtn {
+            margin-left: 10px;
+        }
+        .btn-custom {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container form-container">
+    <h1 class="text-center mb-4">본사 수정 페이지</h1>
+
+    <form action="/brand/update" class="formObj" th:action="@{/brand/update}" method="post">
+        <input type="hidden" name="brandNum" th:value="${brandDTO.brandNum}">
+
+        <!-- 글번호 -->
+        <div class="form-group">
+            <label for="brandNum">글번호</label>
+            <span th:text="${brandDTO.brandNum}" class="form-control-plaintext" id="brandNum"></span>
+        </div>
+
+        <!-- 본사이름 -->
+        <div class="form-group">
+            <label for="brandTitle">본사 이름</label>
+            <input type="text" class="form-control" name="brandTitle" th:value="${brandDTO.brandTitle}" id="brandTitle">
+        </div>
+
+        <!-- 본사설명 -->
+        <div class="form-group">
+            <label for="brandContent">본사 설명</label>
+            <input type="text" class="form-control" name="brandContent" th:value="${brandDTO.brandContent}" id="brandContent">
+        </div>
+
+        <!-- 수정 및 삭제 버튼 -->
+        <button type="submit" class="btn btn-primary btn-lg btn-custom">저장</button>
+        <button type="button" class="btn btn-danger btn-lg btn-custom delbtn" th:value="${brandDTO.brandNum}">삭제</button>
+    </form>
+
+    <div class="text-center mt-4">
+        <!-- 등록 페이지로 이동하는 버튼 -->
+        <a th:href="${'/brand/insert'}" class="btn btn-secondary btn-lg">등록 페이지로 이동</a>
+        <!-- 목록 페이지로 이동하는 버튼 -->
+        <a th:href="${'/brand/list'}" class="btn btn-info btn-lg">목록으로 이동</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script th:inline="javascript">
+    let formObj = document.querySelector("form");
+    let delbtn = document.querySelector(".delbtn");
+
+    delbtn.addEventListener("click", function (e) {
+        console.log(e.target.value); // 삭제할 번호를 가져옵니다.
+        formObj.action = "/brand/del"; // 삭제할 경로로 설정
+        formObj.innerHTML = `<input type="hidden" name="brandNum" value="${this.value}">`; // 폼에 숨겨진 값 추가
+        formObj.submit(); // 폼 제출
+
+        alert("삭제가 완료되었습니다.");
+    });
+</script>
+
+</body>
+</html>

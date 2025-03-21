@@ -19,7 +19,8 @@ public class HotelDTO {
     private String hotelName;
 
     private String hotelContent;
-
+  
     private BrandDTO brandDTO;
+
 
 }

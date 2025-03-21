@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>상점 등록하기</title>
+</head>
+<body>
+<h1>상점등록</h1>
+<form>
+    <input th:if="${!#strings.isEmpty(hotelNum)}" name="hotelNum" th:value="${hotelNum}">
+    <th:block th:if="${!#lists.isEmpty(hotelDTOList)}">
+        <!--셀렉트로-->
+        <select name="hotelNum">
+            <option th:each="hotel:${hotelDTOList}" th:text="${hotel.hotelName}" th:value="${hotel.hotelNum}">
+            </option>
+        </select>
+    </th:block>
+
+    <th:block th:if="${!#lists.isEmpty(hotelDTOList)}">
+        <!--라디오로-->
+        <input type="radio" name="hotelNum" th:each="hotelDTO:${hotelDTOList}" th:value="${hotelDTO.hotelNum}" th:text="${hotelDTO.hotelName}">
+    </th:block>
+
+    <th:block th:if="${!#lists.isEmpty(hotelDTOList)}">
+        <!--a태그로?-->
+        <select name="hotelNum">
+            <a th:each="hotel:${hotelDTOList}" th:text="${hotel.hotelName}" th:value="${hotel.hotelNum}"></a>
+        </select>
+    </th:block>
+    <button>전송</button>
+</form>
+</body>
+</html>
