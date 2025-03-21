@@ -13,8 +13,8 @@
     <input type="hidden" name="brandNum" th:value="${brandDTO.brandNum}">
 
     글번호 : <span th:text="${brandDTO.brandNum}"></span><br>
-    본사이름 : <input name="title" th:value="${brandDTO.brandTitle}"><br>
-    본사설명 : <input name="content" th:value="${brandDTO.brandContent}"><br>
+    본사이름 : <input name="brandTitle" th:value="${brandDTO.brandTitle}"><br>
+    본사설명 : <input name="brandContent" th:value="${brandDTO.brandContent}"><br>
 
     <button type="submit">저장</button>
     <button type="button" th:value="${brandDTO.brandNum}" class="delbtn">삭제</button>

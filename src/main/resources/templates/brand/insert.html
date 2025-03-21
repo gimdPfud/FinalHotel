@@ -13,14 +13,20 @@
     <a th:href="${'/brand/list'}">리스트페이지로 이동</a>
 </th:block>
 
-<form action="/brand/insert" method="post" th:object="${brandDTO} ">
+<th:block>
+<form action="/brand/insert" method="post" th:object="${brandDTO} " >
 
     제목 : <input name="brandTitle" th:field="*{brandTitle}"> <br>
+    <p th:if="${#fields.hasErrors('brandTitle')}" th:errors="*{brandTitle}" class="fieldError"/>
 
     내용 : <input name="brandContent" th:field="*{brandContent}"> <br>
+    <p th:if="${#fields.hasErrors('brandContent')}" th:errors="*{brandTitle}" class="fieldError"/>
 
     <button>저장</button>
 </form>
+</th:block>
+
+<a th:href="${'/brand/list'}">목록페이지로 이동</a>
 
 </body>
 </html>
