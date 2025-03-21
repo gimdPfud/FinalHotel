@@ -13,4 +13,6 @@ public List<Brand> findByMember_MemberEmail(String email);
 
 
 
+
+
 }

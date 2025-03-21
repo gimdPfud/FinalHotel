@@ -8,7 +8,7 @@ import java.util.List;
 public interface BrandService {
 
     // 등록
-    public BrandDTO insert(BrandDTO brandDTO);
+    public BrandDTO insert(BrandDTO brandDTO, String email);
 
     // 목록
     public List<BrandDTO> brandDTOList(String email);
