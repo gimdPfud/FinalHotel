@@ -24,14 +24,10 @@ public class ReplyController {
 
         log.info("리뷰 리뷰 리뷰 리뷰 들록 post"+replyDTO);
 
+
         //본사
-        replyService.insertBrand(replyDTO);
+        replyService.insertReply(replyDTO);
 
-        //호텔
-        replyService.insertHotel(replyDTO);
-
-        //보드
-        replyService.insertBroad(replyDTO);
 
         return "reply/insert";
 
