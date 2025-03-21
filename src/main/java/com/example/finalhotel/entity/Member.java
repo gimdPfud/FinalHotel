@@ -21,4 +21,9 @@ public class Member {
     private String memberName;
     private String memberPassword;
     private String role;
+    private Boolean memberActivate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brandNum")
+    private Brand brand;
 }

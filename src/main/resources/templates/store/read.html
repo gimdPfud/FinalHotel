@@ -8,5 +8,13 @@
 </head>
 <body>
 <h1>상점상세</h1>
+<div>
+    <p><strong>상점 번호:</strong> <span th:text="${store.storeNum}"></span></p>
+    <p><strong>상점 이름:</strong> <span th:text="${store.storeName}"></span></p>
+    <p><strong>담당자 이름:</strong> <span th:text="${store.storeOwnerName}"></span></p>
+    <p><strong>담당자 연락처:</strong> <span th:text="${store.storeOwnerContact}"></span></p>
+    <p><strong>직영/가맹 여부:</strong> <span th:text="${store.isOwn}=='y'?'직영':'가맹'"></span></p>
+    <p><strong>호텔 번호:</strong> <span th:text="${hotelName}"></span></p>
+</div>
 </body>
 </html>

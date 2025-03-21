@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>insert</title>
+</head>
+<body>
+
+<form action="/hotel/insert" method="post">
+    <div class="mb-3">
+        <input name="cheifNum" th:value="${cheifNum}">
+        <label for="adminName" class="form-label">총판명</label>
+        <input type="text" class="form-control" id="adminName" name="adminName" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="adminAddr" class="form-label">주소</label>
+        <input type="text" class="form-control" id="adminAddr" name="adminAddr" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">등록</button>
+
+
+</form>
+
+</body>
+</html>

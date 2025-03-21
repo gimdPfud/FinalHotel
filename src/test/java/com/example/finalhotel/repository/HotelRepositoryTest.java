@@ -54,13 +54,13 @@ class HotelRepositoryTest {
 
     }
 
-    @Test
-    public void findByBrand_BrandTitleTest(){
-
-        Hotel hotel = hotelRepository.findByBrand_BrandTitle("히히호텔");
-        log.info(hotel);    //null . .
-
-    }
+//    @Test
+//    public void findByBrand_BrandTitleTest(){
+//
+//        Hotel hotel = hotelRepository.findByBrand_BrandTitle("히히호텔");
+//        log.info(hotel);    //null . .
+//
+//    }
 
 
 
