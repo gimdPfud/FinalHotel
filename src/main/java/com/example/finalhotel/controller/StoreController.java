@@ -32,6 +32,7 @@ public class StoreController {
         model.addAttribute("hotelDTOList",storeService.hotelList("sin@a.a"));
         return "store/insert";
     }
+    /*링크도 */
 
     @PostMapping("/insert")
     public String insertPost(StoreDTO storeDTO){
