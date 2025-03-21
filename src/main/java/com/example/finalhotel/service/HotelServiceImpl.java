@@ -1,6 +1,8 @@
 package com.example.finalhotel.service;
 
+import com.example.finalhotel.dto.BrandDTO;
 import com.example.finalhotel.dto.HotelDTO;
+import com.example.finalhotel.dto.ReplyDTO;
 import com.example.finalhotel.entity.Brand;
 import com.example.finalhotel.entity.Hotel;
 import com.example.finalhotel.repository.BrandRepository;
@@ -57,17 +59,28 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public HotelDTO hotelRead(Long hotelNum) {
-
-        //Hotel pk로 호텔 조회
-        Optional<Hotel> optionalHotel = hotelRepository.findById(hotelNum);
-        log.info("read할 목록 : " + optionalHotel);
-
-        //optional 값이 존재하면 해당 값을 반환, 존재하지 않으면 예외 발생
-        Hotel hotel = optionalHotel.orElseThrow();
-
-        //entity를 DTO로 변환
-        return modelMapper.map(hotel, HotelDTO.class);
+        return null;
     }
+
+//    @Override
+//    public HotelDTO hotelRead(Long hotelNum) {
+//        BrandDTO brandDTO = new BrandDTO();
+//
+//        //Hotel pk로 호텔 조회
+//        Optional<Brand> optionalBrand
+//                = brandRepository.findById(brandDTO.getBrandNum());
+//        log.info("read할 목록 : " + optionalBrand);
+//
+//        //optional 값이 존재하면 해당 값을 반환, 존재하지 않으면 예외 발생
+////        Hotel hotel = optionalBrand.);
+//
+//        //entity를 DTO로 변환
+//        HotelDTO hotelDTO =
+//        modelMapper.map(hotel, HotelDTO.class);
+//        hotelDTO.setBrandDTO( modelMapper.map(hotel.getBrand() , BrandDTO.class) );
+//
+//        return hotelDTO;
+//    }
 
     @Override
     public void hotelUpdate(HotelDTO hotelDTO) {
