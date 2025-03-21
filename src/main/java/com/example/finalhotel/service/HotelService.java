@@ -22,5 +22,9 @@ public interface HotelService {
 
 
 
+    //필요
+    public List<HotelDTO> getHotelFullList();
+
+
 
 }

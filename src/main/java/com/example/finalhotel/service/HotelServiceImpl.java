@@ -58,11 +58,25 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelDTO hotelRead(Long hotelNum) {
 
-        //entity를 DTO로
+        //
         Optional<Hotel> optionalHotel = hotelRepository.findById(hotelNum);
 
+        log.info("read할 목록 : " + optionalHotel);
 
-        return null;
+        Hotel hotel = optionalHotel.orElseThrow();
+
+        //entity를 DTO로
+        return modelMapper.map(hotel, HotelDTO.class);
+    }
+
+
+    @Override
+    public List<HotelDTO> getHotelFullList(){
+        List<Hotel> hotel= hotelRepository.findAll();
+        List<HotelDTO> hotelDTOList = hotel.stream()
+                .map(hotellist -> modelMapper.map(hotellist, HotelDTO.class))
+                .collect(Collectors.toList());
+        return hotelDTOList;
     }
 
 
