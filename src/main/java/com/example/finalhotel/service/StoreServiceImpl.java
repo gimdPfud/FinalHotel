@@ -39,6 +39,11 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
+    public String hotelName(Long hotelNum) {
+        return hotelRepository.findById(hotelNum).orElseThrow(EntityNotFoundException::new).getHotelName();
+    }
+
+    @Override
     public Long storeUpdate(StoreDTO storeDTO) {
         Store store = storeRepository.findById(storeDTO.getStoreNum()).orElseThrow(EntityNotFoundException::new);
         store.setStoreName(storeDTO.getStoreName());

@@ -8,5 +8,26 @@
 </head>
 <body>
 <h1>상점목록</h1>
+<h3 th:text="${'호텔 명 : '+hotelName}"></h3>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>직영/가맹</th>
+        <th>상점 이름</th>
+        <th>담당자</th>
+        <th>연락처</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="store:${storeDTOList}">
+        <td th:text="${store.storeNum}"></td>
+        <td th:text="${store.isOwn}=='y'?'직영':'가맹'"></td>
+        <td><a th:href="@{/store/read(storeNum=${store.storeNum})}" th:text="${store.storeName}"></a></td>
+        <td th:text="${store.storeOwnerName}"></td>
+        <td th:text="${store.storeOwnerContact}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
