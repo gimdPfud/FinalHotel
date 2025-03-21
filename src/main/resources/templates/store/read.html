@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>상점상세</h1>
+<a th:href="@{/store/list(hotelNum=${store.hotelNum})}">목록보기</a>
 <div>
     <p><strong>상점 번호:</strong> <span th:text="${store.storeNum}"></span></p>
     <p><strong>상점 이름:</strong> <span th:text="${store.storeName}"></span></p>
