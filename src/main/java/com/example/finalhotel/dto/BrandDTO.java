@@ -20,8 +20,7 @@ public class BrandDTO {
     @Size(min = 2, max = 2000, message = "한글자만 입력하다니 성의 진짜 없네!! 2~2000까지 작성가능")
     private String brandContent;
 
-
-
+    // 도대체 왜이럴까?
 
     private Member member; // 멤버참조
 
