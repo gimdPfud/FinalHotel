@@ -5,12 +5,14 @@ import com.example.finalhotel.dto.MemberDTO;
 import com.example.finalhotel.entity.Brand;
 import com.example.finalhotel.entity.Member;
 import com.example.finalhotel.repository.BrandRepository;
+import com.example.finalhotel.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,15 +25,18 @@ import java.util.Optional;
 public class BrandServiceImpl implements BrandService{
 
     private  final BrandRepository brandRepository;
-    private ModelMapper modelMapper = new ModelMapper();
+    private final MemberRepository memberRepository;
+        private ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public BrandDTO insert(BrandDTO brandDTO) {
+    public BrandDTO insert(BrandDTO brandDTO, String email) {
 
         log.info("본사 등록 서비스 진입" + brandDTO);
 
         Brand brand = modelMapper.map(brandDTO, Brand.class);
 
+        Member member = memberRepository.findByMemberEmail(email).get();
+        brand.setMember(member);
         brand = brandRepository.save(brand);
 
         brandDTO = modelMapper.map(brand, BrandDTO.class);
@@ -64,6 +69,8 @@ public class BrandServiceImpl implements BrandService{
     @Override
     public List<BrandDTO> brandDTOList (String email) {
         log.info("본사 목록 서비스 진입");
+
+
 
         List<Brand> brandList =
                 brandRepository.findByMember_MemberEmail(email);

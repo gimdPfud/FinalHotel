@@ -1,4 +1,5 @@
 package com.example.finalhotel.service;
+
 import com.example.finalhotel.dto.BoardDTO;
 import com.example.finalhotel.entity.Board;
 import com.example.finalhotel.entity.Hotel;

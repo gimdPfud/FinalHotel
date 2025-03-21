@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -41,7 +42,7 @@ public class BrandController {
     }
 
     @PostMapping("/brand/insert")
-    public String insertPost(@Valid BrandDTO brandDTO, BindingResult bindingResult) {
+    public String insertPost(@Valid BrandDTO brandDTO, BindingResult bindingResult, Principal principal) {
         log.info("post 방식 본사 가입 컨트롤러 진입" + brandDTO);
 
         if (bindingResult.hasErrors()) {
@@ -53,9 +54,10 @@ public class BrandController {
             return "brand/insert";
 
         }
+        String email = principal.getName();
 
         brandDTO =
-                brandService.insert(brandDTO);
+                brandService.insert(brandDTO, email);
 
         log.info("저장된 brandDTO" + brandDTO);
 
@@ -63,9 +65,9 @@ public class BrandController {
     }
 
     @GetMapping("/brand/list")
-    public String list(Model model, String email) {
+    public String list(Model model, Principal principal) {
         log.info("본사 리스트 컨트롤러 진입");
-
+        String email = principal.getName();
         List<BrandDTO> brandDTOList =
                 brandService.brandDTOList(email);
 
@@ -77,6 +79,8 @@ public class BrandController {
 
     @GetMapping("/brand/read")
     public String read(Long brandNum, Model model) {
+
+
         log.info("본사 읽기 컨트롤러 진입" + brandNum);
 
         if (brandNum == null) {
