@@ -112,4 +112,9 @@ public class StoreServiceImpl implements StoreService{
         }
         return null;
     }
+
+    @Override
+    public List<StoreDTO> storeList() {
+        return storeRepository.findAll().stream().map( store->modelMapper.map(store,StoreDTO.class)).collect(Collectors.toList());
+    }
 }
