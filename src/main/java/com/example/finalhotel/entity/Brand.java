@@ -1,9 +1,6 @@
 package com.example.finalhotel.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -23,5 +20,12 @@ public class Brand {
     private String brandTitle;
 
     private String brandContent;
+
+    @ManyToOne
+    @JoinColumn(name = "memberNum")
+    private Member member;
+
+
+
 
 }

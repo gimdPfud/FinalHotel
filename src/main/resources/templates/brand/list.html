@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>목록</h1>
+
+<table>
+    <thead>
+    <th>글번호</th>
+    <th>본사이름</th>
+    <th>본사설명</th>
+    </thead>
+
+
+    <tbody>
+    <th:block th:each="brandDTO: ${brandDTOList}">
+        <tr>
+            <td th:text="${brandDTO.brandNum}"></td>
+            <td>
+                <a th:href="@{/brand/read(brandNum=${brandDTO.brandNum})}">
+                    [[${brandDTO.brandTitle}]]
+                </a>
+            </td>
+            <td th:text="${brandDTO.brandTitle}"></td>
+            <td th:text="${brandDTO.brandContent}"></td>
+        </tr>
+    </th:block>
+
+    <th:block>
+
+        <a th:href="${'/brand/insert'}">등록페이지로 이동</a>
+
+    </th:block>
+
+    </th:block>
+
+    </tbody>
+</table>
+
+
+
+</body>
+</html>
