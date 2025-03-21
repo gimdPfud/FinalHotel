@@ -1,6 +1,7 @@
 package com.example.finalhotel.controller;
 
 import com.example.finalhotel.dto.BrandDTO;
+import com.example.finalhotel.dto.MemberDTO;
 import com.example.finalhotel.repository.BrandRepository;
 import com.example.finalhotel.service.BrandService;
 import jakarta.validation.Valid;
@@ -27,8 +28,10 @@ public class BrandController {
     private final BrandRepository brandRepository;
 
     @GetMapping("/brand/insert")
-    public String insertGet(BrandDTO brandDTO) {
+    public String insertGet(BrandDTO brandDTO, String email, Model model) {
         log.info("get 방식 본사 가입 컨트롤러 진입" + brandDTO);
+
+        model.addAttribute("email", email);
 
         return "brand/insert";
     }
@@ -54,13 +57,14 @@ public class BrandController {
     }
 
     @GetMapping("/brand/list")
-    public String list(Model model) {
+    public String list(Model model, String email) {
         log.info("본사 리스트 컨트롤러 진입");
 
         List<BrandDTO> brandDTOList =
-                brandService.breandList();
+                brandService.brandDTOList(email);
 
         model.addAttribute("brandDTOList", brandDTOList);
+        model.addAttribute("email", email);
 
         return "brand/list";
     }

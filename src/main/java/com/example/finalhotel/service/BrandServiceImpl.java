@@ -1,7 +1,9 @@
 package com.example.finalhotel.service;
 
 import com.example.finalhotel.dto.BrandDTO;
+import com.example.finalhotel.dto.MemberDTO;
 import com.example.finalhotel.entity.Brand;
+import com.example.finalhotel.entity.Member;
 import com.example.finalhotel.repository.BrandRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -40,25 +42,6 @@ public class BrandServiceImpl implements BrandService{
 
     }
 
-    @Override
-    public List<BrandDTO> breandList() {
-        log.info("본사 리스트 서비스 진입");
-
-        List<Brand> brandList =
-                brandRepository.findAll();
-
-        List<BrandDTO> brandDTOList = new ArrayList<>();
-
-        for (Brand brand : brandList){
-
-            BrandDTO brandDTO = modelMapper.map(brand, BrandDTO.class);
-            brandDTOList.add(brandDTO);
-
-        }
-
-        return brandDTOList;
-
-    }
 
     @Override
     public BrandDTO read(Long num) {
@@ -76,6 +59,26 @@ public class BrandServiceImpl implements BrandService{
         log.info("변환된 읽기 dto" + brandDTO);
 
         return brandDTO;
+    }
+
+    @Override
+    public List<BrandDTO> brandDTOList (String email) {
+        log.info("본사 목록 서비스 진입");
+
+        List<Brand> brandList =
+                brandRepository.findByMember_MemberEmail(email);
+
+        List<BrandDTO> brandDTOList = new ArrayList<>();
+
+        for (Brand brand : brandList){
+
+            BrandDTO brandDTO = modelMapper.map(brand, BrandDTO.class);
+            brandDTOList.add(brandDTO);
+
+        }
+
+        return brandDTOList;
+
     }
 
     @Override
