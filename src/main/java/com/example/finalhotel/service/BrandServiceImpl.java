@@ -98,6 +98,13 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public Long del(Long num) {
-        return null;
+        log.info("삭제 서비스 진입");
+
+        brandRepository.deleteById(num);
+
+        log.info("삭제 완료 db를 확인하세요");
+
+        return num;
+
     }
 }

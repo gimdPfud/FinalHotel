@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class BrandController {
 
     @PostMapping("/update")
     public String postUpdate(BrandDTO brandDTO){
-        log.info("본사 업데이트 post 컨트롤러 진입");
+        log.info("본사 업데이트 post 컨트롤러 진입" + brandDTO);
 
         brandDTO =
                 brandService.update(brandDTO);
@@ -103,6 +104,22 @@ public class BrandController {
 
         return "redirect:/brand/list";
 
+    }
+
+    @PostMapping("/del")
+    public String postDel(BrandDTO brandDTO, Long brandNum){
+        log.info("본사 삭제 포스트 진입");
+        log.info("삭제할 번호를 찾기" + brandNum);
+
+        brandService.del(brandDTO.getBrandNum());
+
+        if (brandNum == null){
+            log.info("pk 넘버값을 찾을 수 없습니다. 다시 한번 확인하세요");
+        }
+
+        log.info("삭제가 완료되었습니다. 리스트 페이지로 이동합니다.");
+
+        return "redirect:/brand/list";
     }
 
 }
