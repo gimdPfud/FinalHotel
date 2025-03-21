@@ -15,7 +15,6 @@ public class MemberDTO {
     private String memberPassword;
     private String role;
     private Boolean memberActivate;
-
     private String memberAffiliated;
 }
 
