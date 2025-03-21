@@ -46,7 +46,7 @@ public class memberController {
         List<HotelDTO> hotelList = hotelService.getHotelFullList();
         model.addAttribute("hotelList", hotelList);
         List<StoreDTO> storeList = storeService.storeList();
-        model.addAttribute("storeList", storeList);
+        model.addAttribute("storeDTOList", storeList);
         return "member/signup";
     }
 
