@@ -9,7 +9,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Log4j2
 @Transactional
@@ -30,13 +35,30 @@ public class BoardServiceImpl implements BoardService {
     }
     //목록
     @Override
-    public List<BoardDTO> boardList(Long hotelNum) {
-        return List.of();
+    public List<BoardDTO> boardList(Long hotelNum, Principal principal) {
+        String email = principal.getName();
+        //hotelNum =
+        List<Board>boardList=
+                boardRepositoty.findByHotel_HotelNum(hotelNum);
+        List<BoardDTO>boardDTOList=new ArrayList<>();
+        for(Board board:boardList){
+            BoardDTO boardDTO=modelMapper.map(board, BoardDTO.class);
+            boardDTOList.add(boardDTO);
+        }
+        log.info("리스트: "+boardList);
+        return boardDTOList;
+
     }
     //읽기
     @Override
     public BoardDTO boardRead(Long boardNum) {
-        return null;
+        log.info("읽기 시작: " + boardNum);
+        Optional<Board> optionalBoard=
+                boardRepositoty.findById(boardNum);
+        Board board = optionalBoard.get();
+        BoardDTO boardDTO=modelMapper.map(board, BoardDTO.class);
+        log.info("읽기 끝"+boardDTO);
+        return boardDTO;
     }
     //수정
     @Override
