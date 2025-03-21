@@ -12,5 +12,5 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private Hotel hotel;
-    private Member member;
+    private Member memberNum;
 }
