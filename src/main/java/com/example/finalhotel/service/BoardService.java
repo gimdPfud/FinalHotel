@@ -15,4 +15,7 @@ public interface BoardService {
     //삭제
     public void boardDelete(Long boardNum);
 
+
+
+
 }
