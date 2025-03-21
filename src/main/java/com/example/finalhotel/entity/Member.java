@@ -23,7 +23,7 @@ public class Member {
     private String role;
     private Boolean memberActivate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brandNum")
-    private Brand brand;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "brandNum")
+//    private Brand brand;
 }
