@@ -8,14 +8,14 @@
 
 <form action="/hotel/insert" method="post">
     <div class="mb-3">
-        <input name="cheifNum" th:value="${cheifNum}">
-        <label for="adminName" class="form-label">총판명</label>
-        <input type="text" class="form-control" id="adminName" name="adminName" required>
+        <input name="hotelNum" th:value="${hotelNum}">
+        <label for="hotelName" class="form-label">호텔명</label>
+        <input type="text" class="form-control" id="hotelName" name="hotelName" required>
     </div>
 
     <div class="mb-3">
-        <label for="adminAddr" class="form-label">주소</label>
-        <input type="text" class="form-control" id="adminAddr" name="adminAddr" required>
+        <label for="hotelContent" class="form-label">호텔 내용</label>
+        <input type="text" class="form-control" id="hotelContent" name="hotelContent" required>
     </div>
 
     <button type="submit" class="btn btn-primary">등록</button>

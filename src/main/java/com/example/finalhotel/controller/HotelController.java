@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +23,7 @@ public class HotelController {
     private final HotelService hotelService;
 
     @GetMapping("/list")
-    public String getList(Long brandNum, Model model) {
+    public String getList(Model model) {
         log.info("list getList Controller 진입");
         List<HotelDTO> hotelDTOS = hotelService.hotelList(brandNum);
         model.addAttribute("hotelDTOS", hotelDTOS);
@@ -46,6 +47,14 @@ public class HotelController {
         return "redirect:/hotel/list";
     }
 
+    @GetMapping("/read/{hotelNum}")
+    public String getRead(@PathVariable("hotelNum") Long hotelNum, Model model){
+
+        HotelDTO hotelDTO = hotelService.hotelRead(hotelNum);
+        model.addAttribute("hotelDTO", hotelDTO);
+
+        return "hotel/read";
+    }
 
 
 
