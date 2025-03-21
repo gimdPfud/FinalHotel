@@ -43,7 +43,7 @@ public class BoardController {
     }
     //읽기
     @GetMapping("/read")
-    public String read(@RequestParam("BoardNum")
+    public String read(@RequestParam(name="boardNum")
                            Model model, Long boardNum) {
         log.info("리드"+ boardNum);
         if (boardNum != null) {

@@ -14,29 +14,46 @@
 <body>
 <div class="container mt-5">
     <h1>게시판 목록</h1>
-    <form action="/board/list" method="get">
-        <div class="d-flex justify-content-end md-4">
-             <a href="/board/insert" class="btn btn-dark">등록</a>
-        </div>
+    <div class="d-flex justify-content-end md-4">
+        <a href="/board/insert" class="btn btn-dark">등록</a>
+    </div>
+    <table class="table text-center">
         <thead>
-            <table class = "table text-center">
-                <thead>
-                    <tr>
-                        <th class="text-center" scope="col">제목</th>
-                        <th scope="col">작성자</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="board : ${boardDTOList}" class="text-center">
-                        <td th:text="${board.boardNum}"></td>
-                        <td class="text-center">
-                        <td th:text="${board.boardTitle}"></td>
-                        <td th:text="${board.boardContent}"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <tr>
+            <th class="text-center" scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+        </tr>
         </thead>
-    </form>
+        <tbody>
+        <tr th:each="board : ${boardDTOList}" class="text-center">
+            <td th:text="${board.boardNum}"></td>
+            <td class="text-center">
+                <a th:href="@{/board/read/{boardNum}(boardNum =
+                ${board.boardNum})}" th:text="${board.boardTitle}"
+                   class="text-decoration-none"></a>
+            </td>
+            <td th:text="${board.hotel.hotelNum}"></td>
+        </tr>
+        </tbody>
+    </table>
+<!--    <nav aria-label="Page navigation">-->
+<!--        <ul class="pagination justify-content-center">-->
+<!--            <li class="page-item" th:classappend="${boardDTOList.first} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{/board/list(page=${boardDTOList.number - 1})}">이전</a>-->
+<!--            </li>-->
+<!--            <th:block-->
+<!--                    th:with="start=${(boardDTOList.number / 10) * 10}, end=${T(java.lang.Math).min(start + 9, boardDTOList.totalPages - 1)}">-->
+<!--                <li class="page-item" th:each="i : ${#numbers.sequence(start, end)}"-->
+<!--                    th:classappend="${i == boardDTOList.number} ? 'active'">-->
+<!--                    <a class="page-link" th:href="@{/board/list(page=${i})}" th:text="${i + 1}"></a>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--            <li class="page-item" th:classappend="${boardDTOList.last} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{/board/list(page=${boardDTOList.number + 1})}">다음</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
