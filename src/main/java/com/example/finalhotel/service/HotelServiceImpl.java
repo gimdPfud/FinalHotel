@@ -11,6 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -21,7 +25,7 @@ public class HotelServiceImpl implements HotelService {
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public HotelDTO hotelInsert(HotelDTO hotelDTO, Long brandNum) {
+    public void hotelInsert(HotelDTO hotelDTO, Long brandNum) {
 
         //호텔 등록하기
         //먼저 본사(brand) pk 갖고오기 (갖고만 왔음)
@@ -36,8 +40,30 @@ public class HotelServiceImpl implements HotelService {
 
         //Hotel entity에 저장하기
         Hotel hotel1 = hotelRepository.save(hotel);
-
-        //entity를 DTO로 변환해서 반환받음
-        return modelMapper.map(hotel1, HotelDTO.class);
     }
+
+    @Override
+    public List<HotelDTO> hotelList(Long brandNum) {
+        //호텔 목록
+        //Brand의 pk(brandNum) 이용하여 해당 브랜드에 속한 호텔 목록 HotelDTO 리스트로 변환하여 반환
+        List<Hotel> hotels = hotelRepository.findByBrand_BrandNum(brandNum);
+        log.info("가져온 List : " + hotels);
+
+        //Hotel entity를 HotelDTO로 변환
+        return hotels.stream()  //hotels 리스트를 Stream API로 변환
+                .map(hotel -> modelMapper.map(hotel, HotelDTO.class))
+                .collect(Collectors.toList());  //변환된 DTO들을 리스트로 수집하여 반환
+    }
+
+    @Override
+    public HotelDTO hotelRead(Long hotelNum) {
+
+        //entity를 DTO로
+        Optional<Hotel> optionalHotel = hotelRepository.findById(hotelNum);
+
+
+        return null;
+    }
+
+
 }
