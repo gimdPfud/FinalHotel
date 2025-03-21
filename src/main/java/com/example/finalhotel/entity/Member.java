@@ -22,6 +22,7 @@ public class Member {
     private String memberPassword;
     private String role;
     private Boolean memberActivate;
+    private String memberAffiliated;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "brandNum")

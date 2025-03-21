@@ -54,7 +54,7 @@ public class memberController {
     public String register(MemberDTO memberDTO) {
         memberDTO.setMemberActivate(Boolean.FALSE);
         memberService.MemberSignup(memberDTO);
-        return "redirect:/main";
+        return "redirect:/login";
     }
 
     @PostMapping("/memberdel")
