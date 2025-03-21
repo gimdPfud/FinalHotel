@@ -1,6 +1,5 @@
 package com.example.finalhotel.repository;
 
-import com.example.finalhotel.dto.HotelDTO;
 import com.example.finalhotel.entity.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 

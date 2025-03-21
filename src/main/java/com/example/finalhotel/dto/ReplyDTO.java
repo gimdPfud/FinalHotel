@@ -1,6 +1,5 @@
 package com.example.finalhotel.dto;
 
-
 import com.example.finalhotel.entity.Board;
 import com.example.finalhotel.entity.Brand;
 import com.example.finalhotel.entity.Hotel;
@@ -24,7 +23,7 @@ public class ReplyDTO {
 
 
     //본사참조 DTO
-    private BreandDTO breandDTO;
+    private BrandDTO brandDTO;
 
 
     //호텔 참조 DTO
@@ -33,7 +32,6 @@ public class ReplyDTO {
 
     //게시판 참조 DTO
     private BoardDTO boardDTO;
-
 
 
 }
