@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+<h1> 여기는 읽기 페이지다. </h1>
+
+글번호 : <span th:text="${brandDTO.brandNum}"></span><br>
+본사이름 : <span th:text="${brandDTO.brandTitle}"></span><br>
+본사설명 : <span th:text="${brandDTO.brandContent}"></span><br>
+
+<a th:href="@{/brand/update(brandNum=${brandDTO.brandNum})}">수정하기</a>
+
+<a th:href="${'/brand/list'}">목록으로이동</a>
+</body>
+</html>

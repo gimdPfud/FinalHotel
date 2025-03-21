@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+
+<form action="/brand/update" class="formObj" th:action="@{/brand/update}" method="post">
+    <h1> 여기는 수정 페이지다. </h1>
+
+    <input type="hidden" name="brandNum" th:value="${brandDTO.brandNum}">
+
+    글번호 : <span th:text="${brandDTO.brandNum}"></span><br>
+    본사이름 : <input name="title" th:value="${brandDTO.brandTitle}"><br>
+    본사설명 : <input name="content" th:value="${brandDTO.brandContent}"><br>
+
+    <button type="submit">저장</button>
+    <button type="button" th:value="${brandDTO.brandNum}" class="delbtn">삭제</button>
+
+</form>
+
+
+<a th:href="${'/brand/insert'}">등록페이지로 이동</a>
+
+<a th:href="${'/brand/list'}">목록으로이동</a>
+</body>
+
+<script th:inline="javascript">
+
+    let formObj = document.querySelector("form");
+    let delbtn = document.querySelector(".delbtn");
+
+    delbtn.addEventListener("click", function (e){
+        // console.log(num);
+        console.log(e.target.value)
+        console.log(this.value) // 삭제할 번호를 가져온다.
+        formObj.action = "/brand/del"
+        // formObj.method = "post"
+        // formObj.innerHTML = "<input name='num' value='" + this.value + "'>"
+        formObj.innerHTML = `<input type="hidden" name="brandNum" value="${this.value}">`
+
+        formObj.submit();
+
+        alert("삭제가 완료되었습니다.")
+
+    });
+</script>
+
+</html>

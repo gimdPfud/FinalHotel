@@ -1,5 +1,6 @@
 package com.example.finalhotel.dto;
 
+import com.example.finalhotel.entity.Member;
 import lombok.*;
 
 @Getter
@@ -14,4 +15,6 @@ public class BrandDTO {
     private String brandTitle;
 
     private String brandContent;
+
+    private Member member; // 멤버참조
 }
