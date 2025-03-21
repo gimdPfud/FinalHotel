@@ -40,6 +40,10 @@ dependencies {
 
     /*모델매퍼*/
     implementation 'org.modelmapper:modelmapper:3.1.1'
+
+//    /*시큐리티*/
+//    implementation "org.springframework.security:spring-security-web"
+//    implementation "org.springframework.security:spring-security-config"
 }
 
 tasks.named('test') {
