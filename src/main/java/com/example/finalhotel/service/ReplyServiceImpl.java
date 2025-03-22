@@ -44,61 +44,84 @@ public class ReplyServiceImpl implements ReplyService{
     private ModelMapper modelMapper = new ModelMapper();
 
 
-
-    //브랜드(Brand) 리뷰등록 기능
+    //
+    //1. 리뷰등록 기능
     @Override
-    public ReplyDTO insertReply(String target , ReplyDTO replyDTO) {
+    public ReplyDTO insertReply(String target, ReplyDTO replyDTO) {
 
-        //리뷰 엔티티 dto로 변환
-        Reply reply =
-                modelMapper.map(replyDTO, Reply.class);
-
+        // 첫 번째로, ReplyDTO를 Reply 엔티티로 변환합니다.
+        Reply reply = modelMapper.map(replyDTO, Reply.class);
 
 
-//        log.info("브랜드에 있는 pk값 들어 왔니" + brand);
-        //=================브랜드===엔티티 조립완료
+        //String 벨류로 받는 메서드 입니다. Valeu="barnd" , Valeu="hotel" ,Valeu="board"
+        // =================== 브랜드 처리 시작 ===================
+        if (target.equals("brand")) {
+            log.info("브랜드");  // "브랜드"라는 정보가 로깅됩니다.
 
-        if(target.equals("brand")) {
-            //========브랜드==========================
-            log.info("브랜드");
-            Optional<Brand> optionalBrand =
-                    brandRepository.findById(replyDTO.getBrandNum());
+            // 만약 Brand 번호가 없으면 예외를 던집니다.
+            if (replyDTO.getBrandNum() == null) {
+                throw new IllegalArgumentException("Brand PK is null");
+            }
 
-            //브랜드 엔티티 값 예외처리
-            Brand brand =
-                    optionalBrand.orElseThrow(EntityNotFoundException::new);
+            // 데이터베이스에서 주어진 Brand 번호에 해당하는 Brand를 찾습니다.
+            // 이때 커리문이 실행됩니다. 예시 커리문: `SELECT * FROM brand WHERE id = ?`
+            Optional<Brand> optionalBrand = brandRepository.findById(replyDTO.getBrandNum());
+
+            // 만약 찾은 결과가 없다면 예외를 던집니다.
+            Brand brand = optionalBrand.orElseThrow(EntityNotFoundException::new);
+
+            // 찾은 Brand를 reply 객체에 설정합니다.
             reply.setBrand(brand);
-
-        }else if(target.equals("hotel")){
-
+        }
+        // =================== 호텔 처리 시작 ===================
+        else if (target.equals("hotel")) {
             log.info("호텔");
-            Optional<Hotel> optionalHotel =
-                    hotelRepository.findById(replyDTO.getHotelNum());
-            Hotel hotel =
-                    optionalHotel.orElseThrow(EntityNotFoundException::new);
+
+            // 만약 Hotel 번호가 없으면 예외를 던집니다.
+            if (replyDTO.getHotelNum() == null) {
+                throw new IllegalArgumentException("Hotel PK is null");
+            }
+
+            // 데이터베이스에서 주어진 Hotel 번호에 해당하는 Hotel을 찾습니다.
+            // 이때 커리문이 실행됩니다. 예시 커리문: `SELECT * FROM hotel WHERE id = ?`
+            Optional<Hotel> optionalHotel = hotelRepository.findById(replyDTO.getHotelNum());
+
+            // 만약 찾은 결과가 없다면 예외를 던집니다.
+            Hotel hotel = optionalHotel.orElseThrow(EntityNotFoundException::new);
+
+            // 찾은 Hotel을 reply 객체에 설정합니다.
             reply.setHotel(hotel);
-            
-        }else if(target.equals("board")){
-
+        }
+        // =================== 게시판 처리 시작 ===================
+        else if (target.equals("board")) {
             log.info("보드");
-            //========보드 ================================
-            Optional<Board> optionalBoard =
-                    boardRepositoty.findById(replyDTO.getBoardNum());
 
-            //예외처리
-            Board board =
-                    optionalBoard.orElseThrow(EntityNotFoundException::new);
+            // 만약 Board 번호가 없으면 예외를 던집니다.
+            if (replyDTO.getBoardNum() == null) {
+                throw new IllegalArgumentException("Board PK is null");
+            }
+
+            // 데이터베이스에서 주어진 Board 번호에 해당하는 Board를 찾습니다.
+            // 이때 커리문이 실행됩니다. 예시 커리문: `SELECT * FROM board WHERE id = ?`
+            Optional<Board> optionalBoard = boardRepositoty.findById(replyDTO.getBoardNum());
+
+            // 만약 찾은 결과가 없다면 예외를 던집니다.
+            Board board = optionalBoard.orElseThrow(EntityNotFoundException::new);
+
+            // 찾은 Board를 reply 객체에 설정합니다.
             reply.setBoard(board);
         }
+        // =================== 잘못된 타겟 값 처리 ===================
+        else {
+            throw new IllegalArgumentException("Invalid target type: " + target);
+        }
 
+        // 리뷰를 데이터베이스에 저장합니다.
+        // 이때 커리문이 실행됩니다. 예시 커리문: `INSERT INTO reply (...) VALUES (...)`
+        Reply result = replyRepository.save(reply);
 
-        //리뷰 Db 에 저장 메서드
-        Reply brandresult =
-                replyRepository.save(reply);
-
-        //ReplyDTO에 반환 하기
-        replyDTO = modelMapper.map(brandresult, ReplyDTO.class);
-
+        // 저장된 reply 엔티티를 다시 ReplyDTO로 변환하여 반환합니다.
+        replyDTO = modelMapper.map(result, ReplyDTO.class);
 
         return replyDTO;
     }

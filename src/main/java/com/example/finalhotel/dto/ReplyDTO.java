@@ -16,7 +16,8 @@ public class ReplyDTO {
     private Long replyNum;
 
     //작성자
-    private String replyName;
+
+private String replyName;
 
     //내용
     private String replyContent;
@@ -36,6 +37,5 @@ public class ReplyDTO {
     private Long hotelNum;
     private Long boardNum;
     private Long brandNum;
-
 
 }
